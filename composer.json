@@ -1,0 +1,21 @@
+{
+    "name": "thundev/matrix-notification-channel",
+    "description": "Matrix notification channel for Laravel.",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Thundev\\MatrixNotificationChannel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexander Gromov",
+            "email": "alexander.gromov702@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
