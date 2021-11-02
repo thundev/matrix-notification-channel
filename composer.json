@@ -3,6 +3,7 @@
     "description": "Matrix notification channel for Laravel.",
     "type": "library",
     "require": {
+        "php": "^8.0",
         "guzzlehttp/guzzle": "^7.4"
     },
     "license": "MIT",
