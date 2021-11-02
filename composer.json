@@ -17,5 +17,15 @@
             "email": "alexander.gromov702@gmail.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "orchestra/testbench": "^6.22"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Thundev\\MatrixNotificationChannel\\MatrixServiceProvider"
+            ]
+        }
+    }
 }
