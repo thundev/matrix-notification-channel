@@ -1,13 +1,15 @@
 <?php
 
-namespace Thundev\MatrixNotificationChannel\app\Services;
+namespace Thundev\MatrixNotificationChannel\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use InvalidArgumentException;
 use GuzzleHttp\Exception\GuzzleException;
+use Thundev\MatrixNotificationChannel\Contracts\MatrixServiceContract;
+use Thundev\MatrixNotificationChannel\Message\MatrixMessage;
 
-class MatrixService implements MatrixServiceInterface
+class MatrixService implements MatrixServiceContract
 {
     private Client $client;
 

@@ -5,16 +5,16 @@ namespace Thundev\MatrixNotificationChannel;
 use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
-use Thundev\MatrixNotificationChannel\app\Channels\MatrixChannel;
-use Thundev\MatrixNotificationChannel\app\Services\MatrixService;
-use Thundev\MatrixNotificationChannel\app\Services\MatrixServiceInterface;
-use Thundev\MatrixNotificationChannel\app\Services\MatrixServiceMock;
+use Thundev\MatrixNotificationChannel\Channels\MatrixChannel;
+use Thundev\MatrixNotificationChannel\Service\MatrixService;
+use Thundev\MatrixNotificationChannel\Service\MatrixServiceMock;
+use Thundev\MatrixNotificationChannel\Contracts\MatrixServiceContract;
 
 class MatrixServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(MatrixServiceInterface::class, function () {
+        $this->app->singleton(MatrixServiceContract::class, function () {
             return config('matrix.enabled')
                 ? new MatrixService(config('matrix.uri'), config('matrix.token'))
                 : new MatrixServiceMock();

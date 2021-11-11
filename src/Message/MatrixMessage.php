@@ -1,6 +1,6 @@
 <?php
 
-namespace Thundev\MatrixNotificationChannel\app\Services;
+namespace Thundev\MatrixNotificationChannel\Message;
 
 use JetBrains\PhpStorm\ArrayShape;
 

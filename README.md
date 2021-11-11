@@ -47,7 +47,7 @@ class User extends Authenticatable
 
 #### Creating Notifications
 
-If a notification supports being sent as a Matrix message, your notification should implement `Thundev\MatrixNotificationChannel\app\Notifications\MatrixNotificationInterface` which defines a `toMatrix()` method. This method will receive a `$notifiable` entity and should return an `Thundev\MatrixNotificationChannel\app\Services\MatrixMessage` instance:
+If a notification supports being sent as a Matrix message, your notification should implement `Thundev\MatrixNotificationChannel\Contracts\MatrixNotificationContract` which defines a `toMatrix()` method. This method will receive a `$notifiable` entity and should return an `Thundev\MatrixNotificationChannel\Message\MatrixMessage` instance:
 
 ```php
 <?php
@@ -56,10 +56,10 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Thundev\MatrixNotificationChannel\app\Notifications\MatrixNotificationInterface;
-use Thundev\MatrixNotificationChannel\app\Services\MatrixMessage;
+use Thundev\MatrixNotificationChannel\Contracts\MatrixNotificationContract;
+use Thundev\MatrixNotificationChannel\Message\MatrixMessage;
 
-class InvoiceCreatedNotification extends Notification implements MatrixNotificationInterface
+class InvoiceCreatedNotification extends Notification implements MatrixNotificationContract
 {
     use Queueable;
     
