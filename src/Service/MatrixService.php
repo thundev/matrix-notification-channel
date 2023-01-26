@@ -23,7 +23,7 @@ class MatrixService implements MatrixServiceContract
     }
 
     /**
-     * @param MatrixMessage $message
+     * @param  MatrixMessage  $message
      * @return bool
      * @throws GuzzleException
      */
@@ -79,8 +79,64 @@ class MatrixService implements MatrixServiceContract
             'verify' => false,
             'base_uri' => $uri,
             'query' => [
-                'access_token' => $token
-            ]
+                'access_token' => $token,
+            ],
         ]);
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws \JsonException
+     */
+    public function createRoom(string $roomAlias = ''): ?string
+    {
+        try {
+            $response = $this->client
+                ->post('/_matrix/client/r0/createRoom', ['json' => ['room_alias' => $roomAlias]]);
+        } catch (ClientException $exception) {
+            return $exception->getCode() == 403
+                ? false
+                : throw $exception;
+        }
+
+        return json_decode($response
+            ->getBody()
+            ->getContents(), false, 512, JSON_THROW_ON_ERROR)?->room_id;
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function leaveRoom(string $roomId): bool
+    {
+        $uri = sprintf('/_matrix/client/r0/rooms/%s/leave', $roomId);
+
+        try {
+            $response = $this->client->post($uri);
+        } catch (ClientException $exception) {
+            return $exception->getCode() == 403
+                ? false
+                : throw $exception;
+        }
+
+        return $response->getStatusCode() == 200;
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function invite(string $username, string $roomId): bool
+    {
+        $uri = sprintf('/_matrix/client/r0/rooms/%s/invite', $roomId);
+
+        try {
+            $response = $this->client->post($uri, ['json' => ['user_id' => $username]]);
+        } catch (ClientException $exception) {
+            return $exception->getCode() == 403
+                ? false
+                : throw $exception;
+        }
+
+        return $response->getStatusCode() == 200;
     }
 }
