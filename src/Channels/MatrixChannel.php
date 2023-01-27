@@ -13,10 +13,22 @@ class MatrixChannel
      */
     public function send(mixed $notifiable, MatrixNotificationContract $notification)
     {
-        $message = $notification
-            ->toMatrix($notifiable)
-            ->to($notifiable->routeNotificationFor('matrix', $notification));
+        $matrix = app()->get(MatrixServiceContract::class);
 
-        app()->get(MatrixServiceContract::class)->message($message);
+        $to = $notifiable->routeNotificationFor('matrix', $notification);
+
+        if (is_array($to)) {
+            foreach ($to as $receiver) {
+                $message = $notification
+                    ->toMatrix($notifiable)
+                    ->to($receiver);
+                $matrix->message($message);
+            }
+        } else {
+            $message = $notification
+                ->toMatrix($notifiable)
+                ->to($to);
+            $matrix->message($message);
+        }
     }
 }
