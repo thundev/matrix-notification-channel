@@ -45,12 +45,12 @@ class MatrixService implements MatrixServiceContract
         try {
             $response = $this->client->post($uri);
         } catch (ClientException $exception) {
-            return $exception->getCode() == 403
+            return $exception->getCode() === 403
                 ? false
                 : throw $exception;
         }
 
-        return $response->getStatusCode() == 200;
+        return $response->getStatusCode() === 200;
     }
 
     /**
@@ -64,14 +64,14 @@ class MatrixService implements MatrixServiceContract
         try {
             $response = $this->client->put($uri, $body);
         } catch (GuzzleException $e) {
-            if ($e->getCode() == 403 && $this->joinRoom($roomId)) {
+            if ($e->getCode() === 403 && $this->joinRoom($roomId)) {
                 return $this->sendMessage($roomId, $body);
             }
 
             throw $e;
         }
 
-        return $response->getStatusCode() == 200;
+        return $response->getStatusCode() === 200;
     }
 
     protected function getClient(string $uri, string $token): Client
@@ -114,12 +114,12 @@ class MatrixService implements MatrixServiceContract
         try {
             $response = $this->client->post($uri);
         } catch (ClientException $exception) {
-            return $exception->getCode() == 403
+            return $exception->getCode() === 403
                 ? false
                 : throw $exception;
         }
 
-        return $response->getStatusCode() == 200;
+        return $response->getStatusCode() === 200;
     }
 
     /**
@@ -132,11 +132,11 @@ class MatrixService implements MatrixServiceContract
         try {
             $response = $this->client->post($uri, ['json' => ['user_id' => $username]]);
         } catch (ClientException $exception) {
-            return $exception->getCode() == 403
+            return $exception->getCode() === 403
                 ? false
                 : throw $exception;
         }
 
-        return $response->getStatusCode() == 200;
+        return $response->getStatusCode() === 200;
     }
 }
