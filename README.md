@@ -20,7 +20,7 @@ php artisan vendor:publish --tag="matrix-config"
 
 #### Routing Matrix notification
 
-To route Matrix notifications to the proper room, define a `routeNotificationForMatrix()` method on your notifiable entity which should return the Matrix room ID to which the notification should be delivered. Make sure to invite your bot into the room first. The bot will automatically accept the invitation upon sending the very first message.
+To route Matrix notifications to the proper room(s), define a `routeNotificationForMatrix()` method on your notifiable entity which should return the Matrix room ID or IDs to which the notification should be delivered. Make sure to invite your bot into the room first. The bot will automatically accept the invitation upon sending the very first message.
 
 ```php
 <?php
@@ -38,7 +38,7 @@ class User extends Authenticatable
     /**
      * @param  Notification  $notification
      */
-    public function routeNotificationForMatrix($notification): string
+    public function routeNotificationForMatrix($notification): string|array
     {
         return 'your_room_id';
     }
